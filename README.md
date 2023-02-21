@@ -120,7 +120,7 @@ The motion detection algorithm is fairly simple. It is contained in the `MotionD
 
 1. The number of changed pixels is determined for `motion`.
 
-1. If the number of changed pixels is above the configured Sensitivity consecutively for the number of times specified by Continuation, the degree of activity is increased by 1.
+1. If the number of changed pixels is constantly above *Sensitivity* for the number of times specified by *Continuation*, the degree of activity is increased by 1.
 
 ## License
 
