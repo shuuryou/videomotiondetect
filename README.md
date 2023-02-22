@@ -1,6 +1,6 @@
 # Standalone Motion Detection for Surveillance Camera Recordings
 
-This is a small program written in C# that uses OpenCvSharp to detect motion in video files. It has been tested with H.264 and H.265 encoded videos and offers an acceptable level of performance. It should also support other video formats (basically, it is only limited to the formats OpenCvSharp supports). The motion detection algorithm is a slightly improved version of the one used in my [camsrvd](https://github.com/shuuryou/camsrv) project.
+This is a small program written in C♯ that uses [OpenCvSharp](https://github.com/shimat/opencvsharp) to detect motion in video files. It has been tested with H.264 and H.265 encoded videos and offers an acceptable level of performance. It should also support other video formats (basically, it is only limited to the formats OpenCvSharp supports). The motion detection algorithm is a slightly improved version of the one used in my [camsrvd](https://github.com/shuuryou/camsrv) project.
 
 If you have one or more surveillance cameras that continuously record video files onto an SD card or onto a network server, this program can help you find just those video files that contain motion in the areas you are interested in. For example, if someone put junk mail into your mailbox, you can highlight your mailbox as a “region of interest” and the program will check all of the video files you point it at for motion around your mailbox.
 
@@ -58,8 +58,7 @@ Check the examples below.
 ![Threshold set to 128](https://user-images.githubusercontent.com/36278767/220478242-388672b2-7ed9-44df-b399-1b139841593a.png)
 
 #### Deviation
-**Deviation** sets how concentrated to a single area any differences between individual frames have to be. Lower values mean that motion has to be in a very constrained area, while higher values allow
-for more spaced out motion throughout the entire video frame, which usually leads to false positives (e.g. during rain or snowfall, or when sunlight hits the camera lens).
+**Deviation** sets how concentrated to single areas any differences between individual frames have to be. Lower values mean that motion has to be in a very constrained area, while higher values allow for more spaced out motion throughout the entire video frame, which usually leads to false positives (e.g. during rain or snowfall, or when sunlight hits the camera lens).
 
 Consider the following frame of video. An automatic PTZ camera was currently moving to another position. As you can see a lot of changes are distributed throughout the entire frame of video. Without checking the deviation, this would be a false positive motion detection.
 
@@ -116,11 +115,20 @@ The motion detection algorithm is fairly simple. It is contained in the `MotionD
 1. To remove more noise, Erode is applied to `motion` to reduce areas with less differences and increase areas with more differences.\
 ![Application of erode](https://user-images.githubusercontent.com/36278767/220479575-bccca850-0b13-4457-9408-02a5d3cd3f22.png)
 
-1. Standard deviation is calculated for `motion` to see if changes are constrained to a small area or spread throughout the entire frame of video. If too high, does not continue.
+1. Standard deviation is calculated for `motion` to see if changes are constrained to small areas or spread throughout the entire frame of video. If too high, does not continue.
 
 1. The number of changed pixels is determined for `motion`.
 
 1. If the number of changed pixels is constantly above *Sensitivity* for the number of times specified by *Continuation*, the degree of activity is increased by 1.
+
+## Performance
+I have not done highly detailed tests because this was initially supposed to be a quick one-off project to solve a problem I had, but I think performance is reasonable.
+
+My development PC is a fairly old Intel NUC 6i5SYB with an Intel Core i5 6260U 1.80GHz CPU and 32GB RAM. Processing a single H265 encoded security camera recording of 2880x1616 pixels (5MP) at 15fps takes about 2 minutes without a region of interest applied. CPU use is about 40-60% and it uses around 1GB of RAM  throughout the process. A day's worth of 5MP@15fps recordings takes a bit over an 1.5 hours to process.
+
+A set of 216 videos (960x540, 5fps, total run time 17h52m, no region of interest) takes about three minutes.
+
+OpenCvSharp does not have the highest possible speed because of how the author designed it to require frequent explicit calls to `GC.Collect()`, which kills performance. Maybe that will be fixed by the author of the library at some point in the future.
 
 ## License
 
