@@ -11,7 +11,7 @@ using System.IO;
  * Thanks to Cédric Verstraeten for the general motion detection algorithm,
  * a mutation of which lives on in this code.
  * 
- * This C# port made was in early 2023. It is just a quick and dirty conversion
+ * This C# port was made in early 2023. It is just a quick and dirty conversion
  * of the C++ code, so not a piece of poetry. But I did expand it so each frame
  * is cropped to the region of interest, which speeds things up quite a bit if
  * the ROI is small enough. It can also skip empty video frames correctly.
