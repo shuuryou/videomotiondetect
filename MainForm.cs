@@ -179,6 +179,8 @@ namespace VideoMotionDetect
 			createMaskButton.Enabled = false;
 			selectVideoFilesLabel.Enabled = false;
 			selectVideoFilesButton.Enabled = false;
+			thresholdLabel.Enabled = false;
+			thresholdNumericUpDown.Enabled = false;
 			maxDeviationLabel.Enabled = false;
 			maxDeviationUpDown.Enabled = false;
 			sensitivityLabel.Enabled = false;
@@ -206,6 +208,8 @@ namespace VideoMotionDetect
 			createMaskButton.Enabled = true;
 			selectVideoFilesLabel.Enabled = true;
 			selectVideoFilesButton.Enabled = true;
+			thresholdLabel.Enabled = true;
+			thresholdNumericUpDown.Enabled = true;
 			maxDeviationLabel.Enabled = true;
 			maxDeviationUpDown.Enabled = true;
 			sensitivityLabel.Enabled = true;
